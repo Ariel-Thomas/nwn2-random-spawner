@@ -1,0 +1,400 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/Ariel/Desktop/Scripts/nwscript.NSS",
+			"settings":
+			{
+				"buffer_size": 661840,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rand_spawn_camps.nss",
+			"settings":
+			{
+				"buffer_size": 2021,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rand_spawn_level_creature.nss",
+			"settings":
+			{
+				"buffer_size": 5041,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "// rand_spawn_onspawn\n/*\n    Default OnSpawn handler\n \n    To create customized spawn scripts, use the \"Custom OnSpawn\" script template. \n*/\n//:://////////////////////////////////////////////////\n//:: Copyright (c) 2002 Floodgate Entertainment\n//:: Created By: Naomi Novik\n//:: Created On: 12/11/2002\n//:://////////////////////////////////////////////////\n//:: Updated 2003-08-20 Georg Zoeller: Added check for variables to active spawn in conditions without changing the spawnscript\n// ChazM 6/20/05 ambient anims flag set on spawn for encounter cratures.\n// ChazM 1/6/06 modified call to WalkWayPoints()\n// DBR 2/03/06  Added option for a spawn script (AI stuff, but also handy in general)\n// ChazM 8/22/06 Removed reference to \"kinc_globals\".\n// ChazM 3/8/07 Added campaign level creature spawn modifications script.  Moved excess commented code out to template.\n// ChazM 4/5/07 Incorporeal creatures immune to non magic weapons\n// JSH-OEI 5/1/08 - Check creature type before spawning random treasure.\n\n#include \"x0_i0_anims\"\n#include \"x0_i0_treasure\"\n#include \"x2_inc_switches\"\n\nvoid main()\n{\n	//LOG: WriteTimestampedLogEntry(\"Spawning Started\");\n    // Run this campaign's standard creature spawn modifications script (set in module load)\n    string sScriptSpawnCreature = GetGlobalString(\"N2_SCRIPT_SPAWN_CREATURE\");\n    if (sScriptSpawnCreature != \"\")\n    {\n		ExecuteScript(sScriptSpawnCreature, OBJECT_SELF);\n    }\n\n    // ***** Spawn-In Conditions ***** //\n    // See x2_inc_switches for more information about these\n    \n    // Enable stealth mode by setting a variable on the creature\n    // Great for ambushes\n    if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_STEALTH) == TRUE)\n    {\n        SetSpawnInCondition(NW_FLAG_STEALTH);\n    }\n    \n    // Make creature enter search mode after spawning by setting a variable\n    // Great for guards, etc\n    if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_SEARCH) == TRUE)\n    {\n        SetSpawnInCondition(NW_FLAG_SEARCH);\n    }\n	  \n    // Enable immobile ambient animations by setting a variable\n    if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_AMBIENT_IMMOBILE) == TRUE)\n    {\n        SetSpawnInCondition(NW_FLAG_IMMOBILE_AMBIENT_ANIMATIONS);\n    }\n\n    // Enable mobile ambient animations by setting a variable\n    if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_AMBIENT) == TRUE)\n    {\n        SetSpawnInCondition(NW_FLAG_AMBIENT_ANIMATIONS);\n    }\n\n    // ***** DEFAULT GENERIC BEHAVIOR ***** //\n    // * Goes through and sets up which shouts the NPC will listen to.\n    SetListeningPatterns();\n\n    // * Walk among a set of waypoints if they exist.\n    // * 1. Find waypoints with the tag \"WP_\" + NPC TAG + \"_##\" and walk\n    // *    among them in order.\n    // * 2. If the tag of the Way Point is \"POST_\" + NPC TAG, stay there\n    // *    and return to it after combat.\n    //\n    // * If \"NW_FLAG_DAY_NIGHT_POSTING\" is set, you can also\n    // * create waypoints with the tags \"WN_\" + NPC Tag + \"_##\"\n    // * and those will be walked at night. (The standard waypoints\n    // * will be walked during the day.)\n    // * The night \"posting\" waypoint tag is simply \"NIGHT_\" + NPC tag.\n    WalkWayPoints(FALSE, \"spawn\");\n    \n    //* Create a small amount of treasure on the creature\n    if (GetLocalInt(GetModule(), \"X2_L_NOTREASURE\") == FALSE\n        && GetLocalInt(OBJECT_SELF, \"X2_L_NOTREASURE\") == FALSE\n		&& GetRacialType(OBJECT_SELF) != RACIAL_TYPE_ANIMAL\n		&& GetRacialType(OBJECT_SELF) != RACIAL_TYPE_BEAST\n		&& GetRacialType(OBJECT_SELF) != RACIAL_TYPE_CONSTRUCT\n		&& GetRacialType(OBJECT_SELF) != RACIAL_TYPE_ELEMENTAL\n		&& GetRacialType(OBJECT_SELF) != RACIAL_TYPE_VERMIN)\n    {\n		if (GetChallengeRating(OBJECT_SELF) <= 5.0)\n		{\n        	CTG_GenerateNPCTreasure(TREASURE_TYPE_LOW, OBJECT_SELF);\n		}\n		else if (GetChallengeRating(OBJECT_SELF) >5.0 && GetChallengeRating(OBJECT_SELF) <=10.0)\n		{\n			CTG_GenerateNPCTreasure(TREASURE_TYPE_MED, OBJECT_SELF);\n		}\n		else\n		{\n			CTG_GenerateNPCTreasure(TREASURE_TYPE_HIGH, OBJECT_SELF);\n		}\n    }\n    \n    // encounter creatures use ambient animations\n    if (GetIsEncounterCreature())\n		SetSpawnInCondition(NW_FLAG_AMBIENT_ANIMATIONS, TRUE);\n\n    // * If Incorporeal, apply changes\n    if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_IS_INCORPOREAL) == TRUE)\n    {\n        effect eConceal = EffectConcealment(50, MISS_CHANCE_TYPE_NORMAL);\n        eConceal = ExtraordinaryEffect(eConceal);\n        effect eGhost = EffectCutsceneGhost();\n        eGhost = ExtraordinaryEffect(eGhost);\n        effect eImmuneToNonMagicWeapons = EffectDamageReduction(1000, DAMAGE_POWER_PLUS_ONE, 0, DR_TYPE_MAGICBONUS);\n        eImmuneToNonMagicWeapons = ExtraordinaryEffect(eImmuneToNonMagicWeapons);\n		\n        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eConceal, OBJECT_SELF);\n        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eGhost, OBJECT_SELF);\n        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eImmuneToNonMagicWeapons, OBJECT_SELF);\n    }	\n	\n	if (GetLocalInt(OBJECT_SELF, \"NX2_NO_ORIENT_ON_DIALOG\"))\n		SetOrientOnDialog(OBJECT_SELF, FALSE);\n    	\n	//DBR 2/03/06 - added option for a spawn script (ease of AI hookup)\n	string sSpawnScript=GetLocalString(OBJECT_SELF,\"SpawnScript\");\n	if (sSpawnScript!=\"\")\n		ExecuteScript(sSpawnScript,OBJECT_SELF);\n		\n	//LOG: WriteTimestampedLogEntry(\"Spawning Finished, Begin Level Up\");\n	DelayCommand(1.0f,ExecuteScript(\"rand_spawn_level_creature\",OBJECT_SELF));\n}",
+			"file": "rand_spawn_onspawn.nss",
+			"file_size": 5513,
+			"file_write_time": 129968038738215960,
+			"settings":
+			{
+				"buffer_size": 5443,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/Neverwinter Nights 2.sublime-build",
+	"command_palette":
+	{
+		"height": 81.0,
+		"selected_items":
+		[
+			[
+				"c++",
+				"Set Syntax: C++"
+			],
+			[
+				"C",
+				"Set Syntax: C#"
+			],
+			[
+				"C++",
+				"Set Syntax: C++"
+			],
+			[
+				"syntax",
+				"Set Syntax: C++"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"synta",
+				"Set Syntax: C++"
+			],
+			[
+				"new sy",
+				"z:AAAPackageDev: New Syntax Definition"
+			],
+			[
+				"tcl",
+				"Set Syntax: Tcl"
+			],
+			[
+				"setsyntax",
+				"Set Syntax"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"enable",
+				"Package Control: Enable Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Ariel/Documents/Script Work/dur_craft_onclose.nss",
+		"/C/Users/Ariel/Documents/Script Work/dur_craft_table_misc.nss",
+		"/C/Users/Ariel/Documents/Script Work/dur_craft_table_melee.nss",
+		"/C/Users/Ariel/Documents/Script Work/dur_craft_table_armor.nss",
+		"/C/Users/Ariel/Documents/Script Work/dur_craft_helper.nss",
+		"/C/Users/Ariel/Documents/Script Work/dur_craft_functions.nss",
+		"/C/Users/Ariel/Documents/Script Work/cons_confession.nss",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/DetectSyntax/DetectSyntax.sublime-settings",
+		"/C/Users/Ariel/Documents/Script Work/fae_tears.nss",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/User/Neverwinter Nights 2.sublime-build",
+		"/C/Users/Ariel/Documents/Script Work/derp.nss",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/C++/C.JSON-tmLanguage",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/C++/C.tmLanguage",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/User/Neverwinter Nights 2.JSON-tmLanguage",
+		"/C/Users/Ariel/Desktop/Scripts/nw_s0_restore.NSS",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/User/DetectSyntax.sublime-settings",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/NWN/nwscript.syn",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/NWN/nwn_functions.tcl",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/NWN/nwn_constants.tcl",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/C++/Comments (C++).tmPreferences",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/C++/#include-(inc).sublime-snippet",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/Java/JavaDoc.tmLanguage",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/TCL/Tcl.tmLanguage",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/Ruby/Symbo List%3A Method.tmPreferences",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/User/Tcl.sublime-settings",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/NWN/nss.syn",
+		"/C/Users/Ariel/AppData/Roaming/Sublime Text 2/Packages/User/Plain text.sublime-settings",
+		"/C/Users/Ariel/Desktop/Scripts/nw_s0_grrestore.NSS",
+		"/C/Program Files (x86)/VideoLAN/VLC/vlc.exe",
+		"/C/Users/Ariel/Desktop/thisstormhaseyes/2008-01-24 18.34.16.html",
+		"/C/Users/Ariel/Desktop/Scripts/x2_d2_s_restorat.ncs"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"space",
+			"	",
+			"WriteTimestampedLogEntry",
+			"C",
+			"auto"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"  "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/Ariel/Desktop/Scripts/nwscript.NSS",
+					"settings":
+					{
+						"buffer_size": 661840,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								59
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "rand_spawn_camps.nss",
+					"settings":
+					{
+						"buffer_size": 2021,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "rand_spawn_level_creature.nss",
+					"settings":
+					{
+						"buffer_size": 5041,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								456,
+								456
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "rand_spawn_onspawn.nss",
+					"settings":
+					{
+						"buffer_size": 5443,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5365,
+								5365
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1244.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.03125,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.aaa_package_dev":
+	{
+		"height": 126.0
+	},
+	"output.exec":
+	{
+		"height": 158.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
