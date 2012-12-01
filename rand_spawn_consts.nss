@@ -19,8 +19,26 @@ const int RARITY_RARE_RATIO = 1;
 
 
 
+// ********************
+// ** CAMP CONSTANTS **
+// ********************
+const int TOTAL_NUM_CAMPS = 4;
 
+const string CAMP_KOBOLD        = "Kobold";
+const int CAMP_KOBOLD_MIN_LEVEL = 1;
+const int CAMP_KOBOLD_MAX_LEVEL = 12;
 
+const string CAMP_ORC        = "Orc";
+const int CAMP_ORC_MIN_LEVEL = 1;
+const int CAMP_ORC_MAX_LEVEL = 20;
+
+const string CAMP_DROW        = "Drow";
+const int CAMP_DROW_MIN_LEVEL = 5;
+const int CAMP_DROW_MAX_LEVEL = 20;
+
+const string CAMP_WOLF        = "Wolf";
+const int CAMP_WOLF_MIN_LEVEL = 3;
+const int CAMP_WOLF_MAX_LEVEL = 13;
 
 // *********************
 // ** TRAIT CONSTANTS **
@@ -28,7 +46,7 @@ const int RARITY_RARE_RATIO = 1;
 
 // Random Spawn System Trait Constants
 // DO NOT TOUCH UNLESS ADDING NEW TRAITS
-const int TOTAL_NUM_TRAITS = 17
+const int TOTAL_NUM_TRAITS = 17;
 const int TRAIT_FLAMING_WEAPONS         =   1;
 const int TRAIT_FROST_WEAPONS           =   2;
 const int TRAIT_SHOCK_WEAPONS           =   3;

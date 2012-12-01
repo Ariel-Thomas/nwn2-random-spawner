@@ -90,7 +90,7 @@ void SpawnRandomCamps(object oCamp, string sCamp, location lCamp)
 	// ****************************************************
 	// **											ORCS											***
 	// ****************************************************
-	if (MonsterType == "Orcs")
+	if (MonsterType == "Orc")
 	{
 		int numCreatures = d4(1) + 1;
 	
@@ -297,7 +297,7 @@ void AddPlaceableToCamp(string resRef, object oCamp, string flags)
 }
 
 
-// Adds a random trap placeable to the area to be spawned
+// Adds a creature to the camp to be spawned
 void AddCreatureToCamp(string resRef, object oCamp,string flags)
 {
 	int curCreatureNum =  GetLocalInt(oCamp, "CampNumC");

@@ -4,6 +4,74 @@
 		"selected_items":
 		[
 			[
+				"DetermineArea",
+				"DetermineAreaCreatureType"
+			],
+			[
+				"CAMP_",
+				"CAMP_KOBOLD"
+			],
+			[
+				"TOTAL_NUM",
+				"TOTAL_NUM_CAMPS"
+			],
+			[
+				"AREA_CREATURE_T",
+				"AREA_CREATURE_TYPE"
+			],
+			[
+				"temp",
+				"tempHitPointAmount"
+			],
+			[
+				"returned",
+				"returnedBonus"
+			],
+			[
+				"TRAIT_",
+				"TRAIT_TOUGH"
+			],
+			[
+				"SAVING_THROW",
+				"SAVING_THROW_FORT"
+			],
+			[
+				"primary",
+				"primaryAbility"
+			],
+			[
+				"DAMAGE_TYPE_P",
+				"DAMAGE_TYPE_PIERCING"
+			],
+			[
+				"EffectDamageR",
+				"EffectDamageResistance"
+			],
+			[
+				"DAMAG",
+				"DAMAGE_BONUS_"
+			],
+			[
+				"EffectDamage",
+				"EffectDamageIncrease"
+			],
+			[
+				"level",
+				"levelToAchieve"
+			],
+			[
+				"numCreature",
+				"numCreatureTraits"
+			],
+			[
+				"numCrea",
+				"numCreatureTraits"
+			],
+			[
+				"GetLocal",
+				"GetLocalInt"
+			],
+			[
 				"just",
 				"justCheck"
 			],
@@ -68,18 +136,10 @@
 			}
 		},
 		{
-			"file": "rand_spawn_level_helpers.nss",
-			"settings":
-			{
-				"buffer_size": 8956,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "rand_spawn_level_creature.nss",
 			"settings":
 			{
-				"buffer_size": 1157,
+				"buffer_size": 1306,
 				"line_ending": "Windows"
 			}
 		},
@@ -87,7 +147,15 @@
 			"file": "rand_spawn_camps.nss",
 			"settings":
 			{
-				"buffer_size": 5449,
+				"buffer_size": 8299,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rand_spawn_level_helpers.nss",
+			"settings":
+			{
+				"buffer_size": 9741,
 				"line_ending": "Windows"
 			}
 		},
@@ -95,7 +163,31 @@
 			"file": "rand_spawn_trait.nss",
 			"settings":
 			{
-				"buffer_size": 469,
+				"buffer_size": 7915,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rand_spawn_onspawn.nss",
+			"settings":
+			{
+				"buffer_size": 5443,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rand_spawn_consts.nss",
+			"settings":
+			{
+				"buffer_size": 2139,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rand_spawn_setup_area.nss",
+			"settings":
+			{
+				"buffer_size": 2924,
 				"line_ending": "Windows"
 			}
 		}
@@ -107,11 +199,15 @@
 		"selected_items":
 		[
 			[
-				"c++",
+				"C++",
 				"Set Syntax: C++"
 			],
 			[
-				"C++",
+				"synt",
+				"Set Syntax: C++"
+			],
+			[
+				"c++",
 				"Set Syntax: C++"
 			],
 			[
@@ -179,7 +275,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 400.0
+		"width": 408.0
 	},
 	"console":
 	{
@@ -296,6 +392,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"KOBOLD",
+			"levelToAchieve",
+			"TraitDamageBonusByLevel",
+			"TraitDamageBonusByLevel(levelToAchieve)",
+			"const int",
 			"crow",
 			"sCamp",
 			"	",
@@ -314,6 +415,12 @@
 		"regex": false,
 		"replace_history":
 		[
+			"WOLF",
+			"DROW",
+			"ORC",
+			"(levelToAchieve + 1) / 2",
+			"TraitDamageBonusByAmount",
+			"case",
 			"  ",
 			"creature",
 			"  "
@@ -321,7 +428,7 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
@@ -359,51 +466,23 @@
 			]
 		},
 		{
-			"selected": 3,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 1,
-					"file": "rand_spawn_level_helpers.nss",
-					"settings":
-					{
-						"buffer_size": 8956,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								400,
-								400
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3529.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "rand_spawn_level_creature.nss",
 					"settings":
 					{
-						"buffer_size": 1157,
+						"buffer_size": 1306,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								244,
-								244
+								788,
+								788
 							]
 						],
 						"settings":
@@ -419,19 +498,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "rand_spawn_camps.nss",
 					"settings":
 					{
-						"buffer_size": 5449,
+						"buffer_size": 8299,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								260,
-								260
+								2472,
+								2472
 							]
 						],
 						"settings":
@@ -440,7 +519,35 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 375.0,
+						"translation.y": 1156.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "rand_spawn_level_helpers.nss",
+					"settings":
+					{
+						"buffer_size": 9741,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								210,
+								210
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -450,43 +557,95 @@
 					"file": "rand_spawn_trait.nss",
 					"settings":
 					{
-						"buffer_size": 469,
+						"buffer_size": 7915,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								365,
-								365
-							],
+								30,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "rand_spawn_onspawn.nss",
+					"settings":
+					{
+						"buffer_size": 5443,
+						"regions":
+						{
+						},
+						"selection":
+						[
 							[
-								366,
-								366
-							],
+								5443,
+								5443
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1125.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "rand_spawn_consts.nss",
+					"settings":
+					{
+						"buffer_size": 2139,
+						"regions":
+						{
+						},
+						"selection":
+						[
 							[
-								368,
-								368
-							],
+								1071,
+								1071
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 172.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "rand_spawn_setup_area.nss",
+					"settings":
+					{
+						"buffer_size": 2924,
+						"regions":
+						{
+						},
+						"selection":
+						[
 							[
-								369,
-								369
-							],
-							[
-								413,
-								413
-							],
-							[
-								464,
-								464
-							],
-							[
-								466,
-								466
-							],
-							[
-								467,
-								467
+								2715,
+								2715
 							]
 						],
 						"settings":
@@ -541,7 +700,7 @@
 		"cols":
 		[
 			0.0,
-			0.03125,
+			0.0595305429864,
 			0.906875,
 			1.0
 		],
@@ -575,11 +734,11 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"show_minimap": true,
 	"show_open_files": false,
