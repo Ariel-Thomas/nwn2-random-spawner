@@ -1,6 +1,7 @@
 #include "ginc_math"
-#include "x2_inc_itemprop"  
-
+#include "x2_inc_itemprop" 
+#include "rand_spawn_consts" 
+#include "rand_spawn_trait"
 
 //Changes the creature's FirstName to that of the local tribe name.
 void DoTribeName(object creature);
@@ -182,11 +183,9 @@ void LevelUpCreatureDefault(object creature)
 //Adds an armor bonus to the creature based on levelToAchieve
 void DoArmorBonus(object creature, int levelToAchieve)
 {
-  //Apply Armor bonus instantly so it can't be removed
-  float armorBonus = GetLocalFloat(GetModule(),"ARMOR_PROGRESS_PER_LEVEL");
-  //Remove Later?
-  if ( armorBonus == 0.0f ) armorBonus = 1.0f;
-  armorBonus *= IntToFloat(levelToAchieve);
+  float armorBonus = ARMOR_PROGRESS_PER_LEVEL * IntToFloat(levelToAchieve);
+  
+  //Apply armor bonus instantly so it can't be removed
   ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectACIncrease(MathRound(armorBonus)),creature);
 }
 
@@ -194,21 +193,37 @@ void DoArmorBonus(object creature, int levelToAchieve)
 //Adds a bonus to the creature's primary stat based on levelToAchieve
 void DoStatBonus(object creature, int levelToAchieve)
 {
-  float statBonus = GetLocalFloat(GetModule(),"PRIMARY_STAT_PROGRESS_PER_LEVEL");
-  //Remove Later?
-  if ( statBonus == 0.0f ) statBonus = 0.4f;
-  statBonus *= levelToAchieve;  
-  ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityIncrease(GetPrimaryAbility(creature), MathRound(statBonus)),creature);
+  float statBonus = PRIMARY_STAT_PROGRESS_PER_LEVEL * IntToFloat(levelToAchieve);
+  int primaryAbility = GetPrimaryAbility(creature);
+
+  //Traits
+  if (GetHasTrait(creature, TRAIT_TOUGH))
+    DoToughTrait(creature,primaryAbility,statBonus);
+  if (GetHasTrait(creature, TRAIT_BIG))
+    statBonus = DoBigTrait(creature,primaryAbility,statBonus);
+
+  if (GetHasTrait(TRAIT_BIG))
+  {
+    if (primaryAbility == ABILITY_DEXTERITY)
+      statBonus -= 2;
+    else
+      ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityDecrease(ABILITY_DEXTERITY, 2),creature);
+
+    if (primaryAbility == ABILITY_STRENGTH)
+      statBonus =+ 4;    
+    else
+      ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityIncrease(ABILITY_STRENGTH, 4),creature);
+  }
+
+  //Apply ability bonus instantly so it can't be removed
+  ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityIncrease(primaryAbility, MathRound(statBonus)),creature);
 }
 
 
 //Adds a bonus to the creature's weapons based on levelToAchieve
 void DoWeaponBonus(object creature, int levelToAchieve)
 {
-  float weaponBonus = GetLocalFloat(GetModule(),"WEAPON_PROGRESS_PER_LEVEL");
-  //Remove Later?
-  if ( weaponBonus == 0.0f ) weaponBonus = 0.333f;
-  weaponBonus *= levelToAchieve;  
+  float weaponBonus = WEAPON_PROGRESS_PER_LEVEL * IntToFloat(levelToAchieve);  
   
   //Cycle through inventory
   int bFoundWeapon = FALSE;

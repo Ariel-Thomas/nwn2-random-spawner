@@ -1,3 +1,5 @@
+#include "rand_spawn_consts" 
+
 // Sets up random camps to spawn via the NESS camp spawns
 void SpawnRandomCamps(object oCamp, string sCamp, location lCamp);
 
@@ -11,15 +13,6 @@ void AddCreatureToCamp(string resRef, object oCamp, string flags="SP_PC60_CD60")
 // Gets a random trap resref
 string GetRandomTrapByLocalLevel();
 
-
-// Rarity
-const int RARITY_COMMON = 0;
-const int RARITY_UNCOMMON = 1;
-const int RARITY_RARE = 2;
-
-const int RARITY_COMMON_RATIO = 10;
-const int RARITY_UNCOMMON_RATIO = 4;
-const int RARITY_RARE_RATIO = 1;
 //Returns RARITY_* denoting how rare of a creature is spawned
 int GetCreatueRarity();
 
