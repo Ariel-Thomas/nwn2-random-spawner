@@ -1,9 +1,26 @@
 // Random Spawn System Constants
 
-// Adjust these constants to affect how much of a bonus creatuers recieve each level in various areas
+// Percentage chance of spawning a camp each hour
+const int DEFAULT_CHANCE_OF_SPAWN = 10;
+// Percentage chance of existing camps despawning each hour
+const int DEFAULT_CHANCE_OF_DESPAWN = 10;
+// The number of traits an area will have by defaut
+const int DEFAULT_NUM_AREA_TRAITS = 1;
+
+
+// Adjust these constants to affect how much of a bonus creatures recieve each level in various areas
 const float ARMOR_PROGRESS_PER_LEVEL = 1.0f;
 const float PRIMARY_STAT_PROGRESS_PER_LEVEL = 0.4f;
 const float WEAPON_PROGRESS_PER_LEVEL = 0.333f;
+
+
+// *********************
+// **   Spawn Chance  **
+// *********************
+const int NO_SPAWN = -1;
+const int AREA_USES_DEFAULT_SPAWN_CHANCE = 0;
+const int NO_DESPAWN = -1;
+const int AREA_USES_DEFAULT_DESPAWN_CHANCE = 0;
 
 // *********************
 // ** CREATURE RARITY **
@@ -18,10 +35,10 @@ const int RARITY_UNCOMMON_RATIO = 4;
 const int RARITY_RARE_RATIO = 1;
 
 
-
 // ********************
 // ** CAMP CONSTANTS **
 // ********************
+const string CAMP_INVALID       = "";
 const int TOTAL_NUM_CAMPS = 4;
 
 const string CAMP_KOBOLD        = "Kobold";
@@ -44,8 +61,18 @@ const int CAMP_WOLF_MAX_LEVEL = 13;
 // ** TRAIT CONSTANTS **
 // *********************
 
-// Random Spawn System Trait Constants
+// Rdandom Spawn System Trait Constants
 // DO NOT TOUCH UNLESS ADDING NEW TRAITS
+
+// Set NUM_AREA_TRAITS on area to this to have no traits
+const int NO_AREA_TRAITS                =  -1;
+
+// Not a trait
+const int TRAIT_INVALID                 =   0;
+//Negative integer traits will not be randomly added
+const int TRAIT_TAINTED                 =  -1;
+
+//Positive integer traits that will be randomly added
 const int TOTAL_NUM_TRAITS = 17;
 const int TRAIT_FLAMING_WEAPONS         =   1;
 const int TRAIT_FROST_WEAPONS           =   2;

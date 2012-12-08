@@ -2,6 +2,8 @@
 
 //Sets up the area variables so random creatures will spawn here
 void SetupAreaForRSS(object area);
+//Deletes area variables so no random creatures will spawn here
+void TeardownAreaForRSS(object area));
 
 //Returns a level for the area, based on constraints
 int DetermineAreaLevel(object area);
@@ -11,7 +13,9 @@ string DetermineAreaCreatureType(object area, int areaLevel);
 string CreatureTypeMinMax(string creatureType, int min, int max, int areaLevel);
 
 //Returns a string with the tribe name for the creature type in the area
-string DetermineCreatureTypeTribe(string creatureType);
+string DetermineCreatureTypeTribe(object area, string creatureType);
+//Returns a trait to apply to all creatures in the area
+string DetermineAreaTrait(object area, int traitIndex);
 
 void SetupAreaForRSS(object area)
 {
@@ -22,10 +26,46 @@ void SetupAreaForRSS(object area)
   SetLocalString(area, "AREA_CREATURE_TYPE", creatureType);
 
   string creatureTribe = DetermineCreatureTypeTribe(creatureType);
-  SetLocalString(area, "AREA_CREATURE_TRIBE","");
+  SetLocalString(area, "AREA_CREATURE_TRIBE", creatureTribe);
 
-  int areaTrait = TRAIT_TOUGH;
+  int traitIndex;
+  int numAreaTraits = GetLocalInt("NUM_AREA_TRAITS");
+
+  if (numAreaTraits = 0)
+    numAreaTraits = DEFAULT_NUM_AREA_TRAITS;
+  if (numAreaTraits = NO_AREA_TRAITS)
+    numAreaTraits = 0
+
+  for (traitIndex = 1; traitIndex <= numAreaTraits; traitIndex++)
+  {
+    int areaTrait = DetermineAreaTrait(area, traitIndex);
+    SetLocalString(area, "AREA_TRAIT_" + IntToString(traitIndex), areaTrait);
+  }
+
+  SetLocalString(area, "AREA_SPAWN_READY", TRUE);
 }
+
+void TeardownAreaForRSS(object area)
+{
+  DeleteLocalInt(area, "AREA_CREATURE_LEVEL");
+  DeleteLocalString(area, "AREA_CREATURE_TYPE");
+  DeleteLocalString(area, "AREA_CREATURE_TRIBE");
+
+  int traitIndex = 1;
+  int areaTrait = GetLocalString(area, "AREA_TRAIT_" + IntToString(traitIndex));
+
+  while (areaTrait != TRAIT_INVALID)
+  {
+    DeleteLocalString(area, "AREA_TRAIT_" + IntToString(traitIndex));
+
+    traitIndex++;
+    
+    areaTrait = GetLocalString(area, "AREA_TRAIT_" + IntToString(traitIndex));
+  }
+
+  SetLocalString(area, "AREA_SPAWN_READY", FALSE);
+}
+
 
 
 //Returns a level for the area, based on constraints
@@ -54,7 +94,7 @@ string DetermineAreaCreatureType(object area, int areaLevel)
 {
   string creatureType = GetLocalString(area,"AREA_CREATURE_TYPE_ALWAYS");
 
-  while (creatureType == "")
+  while (creatureType == CAMP_INVALID)
   {
     switch(Random(TOTAL_NUM_CAMPS))
     {
@@ -80,18 +120,28 @@ string DetermineAreaCreatureType(object area, int areaLevel)
 string CreatureTypeMinMax(string creatureType, int min, int max, int areaLevel)
 {
   if ((areaLevel < min) || (areaLevel > max))
-    return "";
+    return CAMP_INVALID;
 
   return creatureType;
 }
 
 
 //Returns a string with the tribe name for the creature type in the area
-string DetermineCreatureTypeTribe(string creatureType)
+string DetermineCreatureTypeTribe(object area, string creatureType)
 {
   string creatureTribe = GetLocalString(area,"AREA_CREATURE_TRIBE_ALWAYS");
   if (creatureTribe != "")
     return creatureTribe;
 
   return "Default";
+}
+
+//Returns a trait to apply to all creatures
+string DetermineAreaTrait(object area, int traitIndex)
+{
+  string areaTrait = GetLocalString(area,"AREA_TRAIT_" + traitIndex + "_ALWAYS");
+  if (areaTrait != TRAIT_INVALID)
+    return areaTrait;
+
+  return Random(TOTAL_NUM_TRAITS) + 1;
 }
