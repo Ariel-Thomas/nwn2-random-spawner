@@ -6,6 +6,8 @@ const int DEFAULT_CHANCE_OF_SPAWN = 10;
 const int DEFAULT_CHANCE_OF_DESPAWN = 10;
 // The number of traits an area will have by defaut
 const int DEFAULT_NUM_AREA_TRAITS = 1;
+// The percentage of spawns in an area that must be cleared for it to be considered cleared
+const int DEFAULT_CLEAR_PERCENTAGE = 80;
 
 
 // Adjust these constants to affect how much of a bonus creatures recieve each level in various areas

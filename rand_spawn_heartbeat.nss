@@ -6,10 +6,17 @@
 //This function serves as a pseudoheartbeat
 void RSSHeartbeat();
 
+//Returns TRUE if the area has any creatures in it
+int DoesAreaHaveCreatures(object area);
+//Returns TRUE if the area has had enough camps killed to be cleared.  Also reactivates spawns in the area.
+int IsAreaCleared(object area);
+
 //Returns the chance out of a 100 that this area should be set up to spawn creatures
 int GetSpawnChance(object area);
 //Returns the chance out of a 100 that this area should be torn down to despawn creatures
 int GetDespawnChance(object area);
+// Returns the percentage of spawns in the area that must be killed for it to be considered cleared
+float GetAreaClearedPercentage(object area);
 
 void main()
 {
@@ -72,4 +79,60 @@ int GetDespawnChance(object area)
     chanceOfDespawn = 0;
 
   return chanceOfDespawn;
+}
+
+//Returns TRUE if the area has any creatures in it
+int DoesAreaHaveCreatures(object area)
+{
+  object areaObject = GetFirstObjectInArea(area);
+
+  while (GetIsObjectValid(areaObject))
+  {
+    if (GetObjectType(areaObject) == OBJECT_TYPE_CREATURE)
+      return TRUE;
+
+    areaObject = GetNextObjectInArea(area);
+  }
+
+  return FALSE;
+}
+
+//Returns TRUE if the area has had enough camps killed to be cleared. Also reactivates spawns in the area.
+int IsAreaCleared(object area)
+{
+  object areaObject = GetFirstObjectInArea(area);
+  int clearedCount = 0;
+  int totalCount = 0;
+
+  while (GetIsObjectValid(areaObject))
+  {
+    if (GetObjectType(areaObject) == OBJECT_TYPE_WAYPOINT)
+    {
+      totalCount++;
+      if (GetLocalInt(curObj, "SpawnDeactivated"))
+      {
+        clearedCount++;
+        GetLocalInt(curObj, "SpawnDeactivated", FALSE);
+      }
+    }
+
+    areaObject = GetNextObjectInArea(area);
+  }
+
+  float clearedPercentage = IntToFloat(clearedCount) / IntToFloat(totalCount + clearedCount) * 100.0f;
+  if (clearedPercentage >= GetAreaClearedPercentage(area))
+    return TRUE;
+
+  return FALSE;
+}
+
+// Returns the percentage of spawns in the area that must be killed for it to be considered cleared
+float GetAreaClearedPercentage(object area)
+{
+  int clearPercentage = GetLocalInt(area, "AREA_CLEAR_PERCENTAGE");
+
+  if (clearPercentage == 0)
+    return DEFAULT_CLEAR_PERCENTAGE
+
+  return clearPercentage;
 }

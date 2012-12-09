@@ -26,7 +26,7 @@ void SpawnRandomCamps(object oCamp, string sCamp, location lCamp)
   // check the local string for camp type
   string MonsterType = GetLocalString(GetArea(OBJECT_SELF),"AREA_CREATURE_TYPE");
 
-    if (MonsterType == CAMP_KOBOLD)
+  if (MonsterType == CAMP_KOBOLD)
 		AddKoboldsToCamp(oCamp);
 
 	if (MonsterType == CAMP_ORC)

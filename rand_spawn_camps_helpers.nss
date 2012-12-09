@@ -66,7 +66,7 @@ int GetCreatueRarity()
 
   if (result < RARITY_COMMON_RATIO)
     return RARITY_COMMON;
-  else if (result < RARITY_UNCOMMON_RATIO + RARITY_UNCOMMON_RATIO)
+  else if (result < RARITY_COMMON_RATIO + RARITY_UNCOMMON_RATIO)
     return RARITY_UNCOMMON;
   else
     return RARITY_RARE;
