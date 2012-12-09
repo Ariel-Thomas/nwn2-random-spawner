@@ -131,63 +131,7 @@
 			"file": "/C/Users/Ariel/Desktop/Scripts/nwscript.NSS",
 			"settings":
 			{
-				"buffer_size": 661840,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "rand_spawn_level_creature.nss",
-			"settings":
-			{
-				"buffer_size": 1306,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "rand_spawn_camps.nss",
-			"settings":
-			{
-				"buffer_size": 8299,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "rand_spawn_level_helpers.nss",
-			"settings":
-			{
-				"buffer_size": 9741,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "rand_spawn_trait.nss",
-			"settings":
-			{
-				"buffer_size": 7915,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "rand_spawn_onspawn.nss",
-			"settings":
-			{
-				"buffer_size": 5443,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "rand_spawn_consts.nss",
-			"settings":
-			{
-				"buffer_size": 2139,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "rand_spawn_setup_area.nss",
-			"settings":
-			{
-				"buffer_size": 2924,
+				"buffer_size": 0,
 				"line_ending": "Windows"
 			}
 		}
@@ -292,6 +236,23 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_consts.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_camps.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_camps_helper.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_trait.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_setup_area.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_level.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_initialize.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_level_helper.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_heartbeat.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rss_onspawn.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rand_spawn_camps.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rand_spawn_level_helpers.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rand_spawn_trait.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rand_spawn_onspawn.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rand_spawn_consts.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rand_spawn_setup_area.nss",
+		"/C/Users/Ariel Thomas/Documents/GitHub/nwn2-random-spawner/rand_spawn_level_creature.nss",
 		"/C/Users/Ariel/Desktop/wonderpin7/2011-12-27 15.40.27.html",
 		"/C/Users/Ariel/Desktop/wonderpin7/2011-12-27 17.39.48.html",
 		"/C/Users/Ariel/Desktop/wonderpin7/2011-12-27 17.40.26.html",
@@ -384,6 +345,8 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"",
+			"C:\\Users\\Ariel Thomas\\Documents\\GitHub\\nwn2-random-spawner",
 			"C:\\Users\\Ariel\\Desktop\\wonderpin7"
 		]
 	},
@@ -392,6 +355,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"rand_spawn_",
+			"rand_spawn",
 			"KOBOLD",
 			"levelToAchieve",
 			"TraitDamageBonusByLevel",
@@ -415,6 +380,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"rss_",
 			"WOLF",
 			"DROW",
 			"ORC",
@@ -442,129 +408,14 @@
 					"file": "/C/Users/Ariel/Desktop/Scripts/nwscript.NSS",
 					"settings":
 					{
-						"buffer_size": 661840,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								219,
-								219
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 6052611.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 6,
-			"sheets":
-			[
-				{
-					"buffer": 1,
-					"file": "rand_spawn_level_creature.nss",
-					"settings":
-					{
-						"buffer_size": 1306,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								788,
-								788
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "rand_spawn_camps.nss",
-					"settings":
-					{
-						"buffer_size": 8299,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2472,
-								2472
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1156.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "rand_spawn_level_helpers.nss",
-					"settings":
-					{
-						"buffer_size": 9741,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								210,
-								210
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "rand_spawn_trait.nss",
-					"settings":
-					{
-						"buffer_size": 7915,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								30,
+								0,
 								0
 							]
 						],
@@ -577,87 +428,12 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "rand_spawn_onspawn.nss",
-					"settings":
-					{
-						"buffer_size": 5443,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5443,
-								5443
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1125.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "rand_spawn_consts.nss",
-					"settings":
-					{
-						"buffer_size": 2139,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1071,
-								1071
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 172.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "rand_spawn_setup_area.nss",
-					"settings":
-					{
-						"buffer_size": 2924,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2715,
-								2715
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
 				}
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		},
 		{

@@ -1,4 +1,4 @@
-// rand_spawn_level_creature
+// rss_level_creature
 /*
   Levels creature up as appropriate for the area it spawns in
 */
@@ -8,8 +8,8 @@
 #include "ginc_event_handlers"
 
 //additional includes
-#include "rand_spawn_level_helpers"
-#include "rand_spawn_trait"
+#include "rss_level_helper"
+#include "rss_trait"
 
 void main()
 {

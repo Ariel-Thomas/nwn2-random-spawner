@@ -1,5 +1,5 @@
-#include "rand_spawn_consts" 
-#include "rand_spawn_camps_helpers"
+#include "rss_consts" 
+#include "rss_camps_helper"
 
 // Sets up random camps to spawn via the NESS camp spawns
 void SpawnRandomCamps(object oCamp, string sCamp, location lCamp);

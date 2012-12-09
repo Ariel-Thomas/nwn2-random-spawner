@@ -1,5 +1,5 @@
-#include "rand_spawn_consts"
-#include "rand_spawn_setup_area"
+#include "rss_consts"
+#include "rss_setup_area"
 
 //rand_spawn_heartbeat
 

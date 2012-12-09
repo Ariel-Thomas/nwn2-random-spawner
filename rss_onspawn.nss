@@ -1,4 +1,4 @@
-// rand_spawn_onspawn
+// rss_onspawn
 /*
     Default OnSpawn handler
  
@@ -129,5 +129,5 @@ void main()
 		ExecuteScript(sSpawnScript,OBJECT_SELF);
 		
 	//LOG: WriteTimestampedLogEntry("Spawning Finished, Begin Level Up");
-	DelayCommand(1.0f,ExecuteScript("rand_spawn_level_creature",OBJECT_SELF));
+	DelayCommand(1.0f,ExecuteScript("rss_level",OBJECT_SELF));
 }

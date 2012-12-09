@@ -1,4 +1,4 @@
-#include "rand_spawn_consts"
+#include "rss_consts"
 
 //On module loads, fire this script to start the delayed heartbeat.
 

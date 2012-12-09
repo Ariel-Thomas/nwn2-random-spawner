@@ -1,7 +1,7 @@
 #include "ginc_math"
 #include "x2_inc_itemprop" 
-#include "rand_spawn_consts" 
-#include "rand_spawn_trait"
+#include "rss_consts" 
+#include "rss_trait"
 
 //Changes the creature's FirstName to that of the local tribe name.
 void DoTribeName(object creature);

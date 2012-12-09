@@ -1,4 +1,4 @@
-#include "rand_spawn_consts" 
+#include "rss_consts" 
 
 //Sets up the area variables so random creatures will spawn here
 void SetupAreaForRSS(object area);

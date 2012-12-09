@@ -1,4 +1,5 @@
-#include "rand_spawn_consts" 
+#include "ginc_math"
+#include "rss_consts" 
 
 // Core Trait Functions
 
@@ -19,11 +20,11 @@ void DoDamageResistanceTrait(object creature, int levelToAchieve, int damageType
 // Applies damage reduction to creature scaled by levelToAchieve
 void DoThickSkinnedTrait(object creature, int levelToAchieve);
 //Bonus to Con equivalent to Stat Bonus, if Con primary attribute, HP/Fort
-int DoToughTrait(object creature, int primaryAbility, int statBonus);
+int DoToughTrait(object creature, int primaryAbility, float statBonus);
 //+4 Str, -2 Dex
-int DoBigTrait(object creature, int primaryAbility, int statBonus);
+int DoBigTrait(object creature, int primaryAbility, float statBonus);
 //+4 Dex, -2 Str
-int DoSmallTrait(object creature, int primaryAbility, int statBonus);
+int DoSmallTrait(object creature, int primaryAbility, float statBonus);
 
 
 // Helpers
@@ -151,7 +152,7 @@ void DoThickSkinnedTrait(object creature, int levelToAchieve)
 }
 
 //Bonus to Con equivalent to Stat Bonus, if Con primary attribute, HP/Fort
-int DoToughTrait(object creature, int primaryAbility, int statBonus)
+int DoToughTrait(object creature, int primaryAbility, float statBonus)
 {
   if (primaryAbility == ABILITY_CONSTITUTION)
   {
@@ -165,7 +166,7 @@ int DoToughTrait(object creature, int primaryAbility, int statBonus)
 
 
 //+4 Str, -2 Dex
-int DoBigTrait(object creature, int primaryAbility, int statBonus)
+int DoBigTrait(object creature, int primaryAbility, float statBonus)
 {
   returnedBonus = statBonus;
 
@@ -183,7 +184,7 @@ int DoBigTrait(object creature, int primaryAbility, int statBonus)
 }
 
 //+4 Dex, -2 Str
-int DoSmallTrait(object creature, int primaryAbility, int statBonus)
+int DoSmallTrait(object creature, int primaryAbility, float statBonus)
 {
   returnedBonus = statBonus;
 

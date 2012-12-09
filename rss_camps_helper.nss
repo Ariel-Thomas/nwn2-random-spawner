@@ -1,4 +1,4 @@
-#include "rand_spawn_consts" 
+#include "rss_consts" 
 
 // Helpers
 // Sets up basics for the random camp
