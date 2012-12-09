@@ -1,4 +1,5 @@
 #include "rand_spawn_consts" 
+#include "rand_spawn_math"
 
 // Core Trait Functions
 
@@ -19,11 +20,11 @@ void DoDamageResistanceTrait(object creature, int levelToAchieve, int damageType
 // Applies damage reduction to creature scaled by levelToAchieve
 void DoThickSkinnedTrait(object creature, int levelToAchieve);
 //Bonus to Con equivalent to Stat Bonus, if Con primary attribute, HP/Fort
-int DoToughTrait(object creature, int primaryAbility, int statBonus);
+void DoToughTrait(object creature, int primaryAbility, float statBonus);
 //+4 Str, -2 Dex
-int DoBigTrait(object creature, int primaryAbility, int statBonus);
+float DoBigTrait(object creature, int primaryAbility, float statBonus);
 //+4 Dex, -2 Str
-int DoSmallTrait(object creature, int primaryAbility, int statBonus);
+float DoSmallTrait(object creature, int primaryAbility, float statBonus);
 
 
 // Helpers
@@ -151,12 +152,12 @@ void DoThickSkinnedTrait(object creature, int levelToAchieve)
 }
 
 //Bonus to Con equivalent to Stat Bonus, if Con primary attribute, HP/Fort
-int DoToughTrait(object creature, int primaryAbility, int statBonus)
+void DoToughTrait(object creature, int primaryAbility, float statBonus)
 {
   if (primaryAbility == ABILITY_CONSTITUTION)
   {
-    int tempHitPointAmount = statBonus * statBonus / (2.0f * PRIMARY_STAT_PROGRESS_PER_LEVEL);
-    ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectTemporaryHitpoints(MathRound(tempHitPointAmount),creature);
+    float tempHitPointAmount = statBonus * statBonus / (2.0f * PRIMARY_STAT_PROGRESS_PER_LEVEL);
+    ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectTemporaryHitpoints(MathRound(tempHitPointAmount)),creature);
     ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectSavingThrowIncrease(SAVING_THROW_FORT, MathRound(statBonus / 2.0f)),creature);
   }
   else
@@ -165,9 +166,9 @@ int DoToughTrait(object creature, int primaryAbility, int statBonus)
 
 
 //+4 Str, -2 Dex
-int DoBigTrait(object creature, int primaryAbility, int statBonus)
+float DoBigTrait(object creature, int primaryAbility, float statBonus)
 {
-  returnedBonus = statBonus;
+  float returnedBonus = statBonus;
 
   if (primaryAbility == ABILITY_DEXTERITY)
     returnedBonus -= 2;
@@ -175,17 +176,17 @@ int DoBigTrait(object creature, int primaryAbility, int statBonus)
     ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityDecrease(ABILITY_DEXTERITY, 2),creature);
 
   if (primaryAbility == ABILITY_STRENGTH)
-    returnedBonus =+ 4;    
+    returnedBonus += 4;    
   else
     ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityIncrease(ABILITY_STRENGTH, 4),creature);
 
-  return returnedBonus
+  return returnedBonus;
 }
 
 //+4 Dex, -2 Str
-int DoSmallTrait(object creature, int primaryAbility, int statBonus)
+float DoSmallTrait(object creature, int primaryAbility, float statBonus)
 {
-  returnedBonus = statBonus;
+  float returnedBonus = statBonus;
 
   if (primaryAbility == ABILITY_STRENGTH)
     returnedBonus -= 2;
@@ -193,11 +194,11 @@ int DoSmallTrait(object creature, int primaryAbility, int statBonus)
     ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityDecrease(ABILITY_STRENGTH, 2),creature);
 
   if (primaryAbility == ABILITY_DEXTERITY)
-    returnedBonus =+ 4;    
+    returnedBonus += 4;    
   else
     ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityIncrease(ABILITY_DEXTERITY, 4),creature);
 
-  return returnedBonus
+  return returnedBonus;
 }
 
 
@@ -260,8 +261,8 @@ int TraitDamageBonusByAmount(int amount)
       return DAMAGE_BONUS_10;
     break;
     default:
-      return DAMAGE_BONUS_0;
+      return DAMAGE_BONUS_1;
   }
 
-  return DAMAGE_BONUS_0;
+  return DAMAGE_BONUS_1;
 }

@@ -18,12 +18,12 @@ void main()
 
 void RSSHeartbeat()
 {
-  if (GetLocalString(area, "AREA_SPAWN_READY") == TRUE) 
+  if (GetLocalInt(OBJECT_SELF, "AREA_SPAWN_READY")) 
   {
     int despawnArea = FALSE;
 
     //Has area been cleared?
-    void IsAreaClear(OBJECT_SELF)
+    //void IsAreaClear(OBJECT_SELF)
 
 
     //Should we despawn?
@@ -31,7 +31,7 @@ void RSSHeartbeat()
       despawnArea = TRUE;
 
     if (despawnArea == TRUE)
-      TearDownAreaForRSS(OBJECT_SELF);
+      TeardownAreaForRSS(OBJECT_SELF);
   }
   else
   {
@@ -41,8 +41,8 @@ void RSSHeartbeat()
   }
 
   //float timeUntilNextBeat = 2700 + Random(1800); // 60 min +- 15 min
-  float timeUntilNextBeat = 60 // Short duration for testing
-  DelayCommand(IntToFloat(timeUntilNextBeat), RSSHeartbeat());
+  float timeUntilNextBeat = 60.0f; // Short duration for testing
+  DelayCommand(timeUntilNextBeat, RSSHeartbeat());
 }
 
 
@@ -57,7 +57,7 @@ int GetSpawnChance(object area)
   if (chanceOfSpawn == NO_SPAWN)
     chanceOfSpawn = 0;
 
-  return chanceOfSpawn
+  return chanceOfSpawn;
 }
 
 //Returns the chance out of a 100 that this area should be torn down to despawn creatures
@@ -71,5 +71,5 @@ int GetDespawnChance(object area)
   if (chanceOfDespawn == NO_DESPAWN)
     chanceOfDespawn = 0;
 
-  return chanceOfDespawn
+  return chanceOfDespawn;
 }

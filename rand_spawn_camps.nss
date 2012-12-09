@@ -22,10 +22,11 @@ void AddWolvesToCamp(object oCamp);
 // Sets up random camps to spawn via the NESS camp spawns
 void SpawnRandomCamps(object oCamp, string sCamp, location lCamp)
 {
-	// check the local string for camp type
+
+  // check the local string for camp type
   string MonsterType = GetLocalString(GetArea(OBJECT_SELF),"AREA_CREATURE_TYPE");
 
-	if (MonsterType == CAMP_KOBOLD)
+    if (MonsterType == CAMP_KOBOLD)
 		AddKoboldsToCamp(oCamp);
 
 	if (MonsterType == CAMP_ORC)
@@ -44,18 +45,18 @@ void SpawnRandomCamps(object oCamp, string sCamp, location lCamp)
 // Adds kobold members to the camp
 void AddKoboldsToCamp(object oCamp)
 { 
-	int numCreatures = d4(1) + 1;
+  int numCreatures = d4(1) + 1;
 
-	InitializeCamp(oCamp);
+  InitializeCamp(oCamp);
 		
   // Always have a campfire at the center of the camp
-	AddPlaceableToCamp("plc_mr_campfire2",oCamp);
-	// Always have a kobold fighter present
+  AddPlaceableToCamp("plc_mr_campfire2",oCamp);
+  // Always have a kobold fighter present
   AddCreatureToCamp("c_kobold_rand_fighter", oCamp);
 
   int i;
-	for (i = 1; i < numCreatures ; i++)
-	{ 
+  for (i = 1; i < numCreatures ; i++)
+  { 
 		switch( GetCreatueRarity() )
 		{
 			case RARITY_COMMON :
@@ -91,7 +92,7 @@ void AddKoboldsToCamp(object oCamp)
 				{
 					case 0  :
 	    			AddCreatureToCamp("c_kobold_rand_trapmaster", oCamp);
-						AddPlaceableToCamp(GetRandomTrapByLocalLevel(), oCamp);
+					AddPlaceableToCamp(GetRandomTrapByLocalLevel(), oCamp);
 					break;
 				}
 			break;
@@ -102,61 +103,61 @@ void AddKoboldsToCamp(object oCamp)
 // Adds orc members to the camp
 void AddOrcsToCamp(object oCamp)
 {
-		int numCreatures = d4(1) + 1;
-	
-		InitializeCamp(oCamp);
-			
-    // Always have a campfire at the center of the camp
-		AddPlaceableToCamp("plc_mr_campfire2",oCamp);
-  	// Always have a kobold fighter present
-    AddCreatureToCamp("c_orc_rand_barbarian", oCamp);
+	int numCreatures = d4(1) + 1;
 
-    int i;
-		for (i = 1; i < numCreatures ; i++)
-		{ 
+	InitializeCamp(oCamp);
+		
+  // Always have a campfire at the center of the camp
+	AddPlaceableToCamp("plc_mr_campfire2",oCamp);
+	// Always have a kobold fighter present
+  AddCreatureToCamp("c_orc_rand_barbarian", oCamp);
 
-			switch( GetCreatueRarity() )
-			{
-				case RARITY_COMMON :
-					switch(Random(3))
-					{
-						case 0	:
-		    			AddCreatureToCamp("c_orc_rand_barbarian", oCamp);
-						break;
-						case 1	:
-		    			AddCreatureToCamp("c_orc_rand_fighter", oCamp);
-		    		break;
-						case 2	:
-		    			AddCreatureToCamp("c_orc_rand_goblin", oCamp);
-		    			AddCreatureToCamp("c_orc_rand_goblin", oCamp);
-						break;
-					}
-				break;
+  int i;
+	for (i = 1; i < numCreatures ; i++)
+	{ 
 
-				case RARITY_UNCOMMON:
-					switch(Random(2))
-					{
-						case 0	:
-		    			AddCreatureToCamp("c_orc_rand_berserker", oCamp);
-						break;
-						case 1  :
-		    			AddCreatureToCamp("c_orc_rand_shaman", oCamp);
-						break;
-					}
-				break;
+		switch( GetCreatueRarity() )
+		{
+			case RARITY_COMMON :
+				switch(Random(3))
+				{
+					case 0	:
+	    			AddCreatureToCamp("c_orc_rand_barbarian", oCamp);
+					break;
+					case 1	:
+	    			AddCreatureToCamp("c_orc_rand_fighter", oCamp);
+	    		break;
+					case 2	:
+	    			AddCreatureToCamp("c_orc_rand_goblin", oCamp);
+	    			AddCreatureToCamp("c_orc_rand_goblin", oCamp);
+					break;
+				}
+			break;
 
-				case RARITY_RARE:
-					switch(Random(1))
-					{
-						case 0  :
-		    			AddCreatureToCamp("c_orc_rand_oozemaster", oCamp);
-		    			AddCreatureToCamp("c_orc_rand_ooze", oCamp);
-						break;
-					}
-				break;
-			}
+			case RARITY_UNCOMMON:
+				switch(Random(2))
+				{
+					case 0	:
+	    			AddCreatureToCamp("c_orc_rand_berserker", oCamp);
+					break;
+					case 1  :
+	    			AddCreatureToCamp("c_orc_rand_shaman", oCamp);
+					break;
+				}
+			break;
+
+			case RARITY_RARE:
+				switch(Random(1))
+				{
+					case 0  :
+	    			AddCreatureToCamp("c_orc_rand_oozemaster", oCamp);
+	    			AddCreatureToCamp("c_orc_rand_ooze", oCamp);
+					break;
+				}
+			break;
 		}
 	}
+}
 
 
 // Adds drow members to the camp

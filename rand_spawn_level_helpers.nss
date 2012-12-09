@@ -1,5 +1,5 @@
-#include "ginc_math"
 #include "x2_inc_itemprop" 
+#include "rand_spawn_math"
 #include "rand_spawn_consts" 
 #include "rand_spawn_trait"
 
@@ -23,9 +23,6 @@ void DoWeaponBonus(object creature, int levelToAchieve);
 
 // Returns highest ability score, favors STR>DEX>CON>INT>WIS>CHA
 int GetPrimaryAbility(object targetCreature);
-// Rounds to the closest number
-int MathRound(float baseNumber);
-
 
 //Changes the creature's FirstName to that of the local tribe name.
 void DoTribeName(object creature)
@@ -201,19 +198,8 @@ void DoStatBonus(object creature, int levelToAchieve)
     DoToughTrait(creature,primaryAbility,statBonus);
   if (GetHasTrait(creature, TRAIT_BIG))
     statBonus = DoBigTrait(creature,primaryAbility,statBonus);
-
-  if (GetHasTrait(TRAIT_BIG))
-  {
-    if (primaryAbility == ABILITY_DEXTERITY)
-      statBonus -= 2;
-    else
-      ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityDecrease(ABILITY_DEXTERITY, 2),creature);
-
-    if (primaryAbility == ABILITY_STRENGTH)
-      statBonus =+ 4;    
-    else
-      ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityIncrease(ABILITY_STRENGTH, 4),creature);
-  }
+  if (GetHasTrait(creature, TRAIT_SMALL))
+    statBonus = DoSmallTrait(creature,primaryAbility,statBonus);
 
   //Apply ability bonus instantly so it can't be removed
   ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAbilityIncrease(primaryAbility, MathRound(statBonus)),creature);
@@ -258,12 +244,6 @@ void DoWeaponBonus(object creature, int levelToAchieve)
   {
     ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectAttackIncrease(MathRound(weaponBonus)),creature);
   }
-}
-
-// Rounds to the closest number
-int MathRound(float baseNumber)
-{
-  return FloatToInt(baseNumber + 0.509f);
 }
 
 // Returns highest ability score, favors STR>DEX>CON>INT>WIS>CHA

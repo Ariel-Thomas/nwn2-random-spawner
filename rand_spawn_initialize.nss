@@ -9,8 +9,8 @@ void main()
 
   while (GetIsObjectValid(currentArea))
   {
-    if (GetLocalInt(area,"RANDOM_SPAWN_AREA") == TRUE)
-      ExecuteScript("rand_spawn_heartbeat", area);
+    if (GetLocalInt(currentArea,"RANDOM_SPAWN_AREA") == TRUE)
+      ExecuteScript("rand_spawn_heartbeat", currentArea);
 
     currentArea = GetNextArea();
   }
