@@ -41,7 +41,7 @@ if (sCamp == "rand_spawner_camp")
 
 > RANDOM_SPAWN_AREA, Integer : Set to 1 to activate the system for this area.
 
-Now place "spawn_rss_creatures" waypoint from module blueprints for each place you would like monsters to appear in the area. Add "spawn_rss_loot" waypoints for where you would like loot to spawn if the area is active.
+Now place "spawn_rss_creatures" waypoint from module blueprints for each place you would like monsters to appear in the area.
 
 The area should spawn creatures now. See below for area constants you can set to refine its behavior.
 
